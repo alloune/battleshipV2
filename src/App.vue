@@ -2,7 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 import {useShipList} from "./Ships/ShipList";
-useShipList();
+const listOfShip = useShipList();
 </script>
 
 <template>

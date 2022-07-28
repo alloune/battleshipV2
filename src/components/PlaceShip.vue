@@ -84,14 +84,26 @@ export default {
         }
         return console.log(intermediateShipItem[0].position)
       }
-      return alert('La taille n\'est pas valide !!!');
+      return alert('La taille n\'est pas valide ou tu sors de la ligne !!!');
     },
     checkIdPositionIsValide(ship){
       if((this.finalPosition - this.initPosition) + 1 === ship.size){
+        if(this.outOfBound(this.initPosition, this.finalPosition))
         return true
       }
+      if((this.finalPosition - this.initPosition) % 10 === 0){
+        console.log('tentative de placer à la verticale')
+      }
       return false
-    }
+    },
+    outOfBound(initPosition, finalPosition){
+      // si final != initTrunc+10 ==> mauvaise position.
+      const valueToTest = (Math.trunc(initPosition/10)*10)+10
+      if(finalPosition > valueToTest){
+        return false
+      }
+      return true;
+    },
   },
   computed: {
     placeableShips() {

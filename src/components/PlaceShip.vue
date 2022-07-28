@@ -91,15 +91,14 @@ export default {
 
       }
       if((this.finalPosition - this.initPosition) % 10 === 0){
-        console.log('horizontal')
         if(this.outOfBoundVertically(this.initPosition, ship.size)){
-          console.log('à finir')
+          for(let i =parseInt(this.initPosition); i <= this.finalPosition; i+=10){
+            return ship.position.push(i);
+          }
         }
       }
-      alert('Le bateau n\'a pas la bonne longueur.')
     },
     outOfBoundHorizontally(initPosition, finalPosition){
-
       const valueToTest = (Math.trunc(initPosition/10)*10)+10
       if(finalPosition > valueToTest){
         return false
@@ -108,8 +107,8 @@ export default {
     },
     outOfBoundVertically(initPosition,shipSize){
       const helperValue = (shipSize - 1)*10;
-      console.log((initPosition + helperValue))
-      if(initPosition + helperValue > 100){
+      console.log(parseInt(initPosition) + helperValue)
+      if(parseInt(initPosition) + helperValue > 100){
         return false;
       }
       return true;

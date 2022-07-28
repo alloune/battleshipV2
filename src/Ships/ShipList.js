@@ -34,7 +34,7 @@ export const useShipList = defineStore("ShipsList",{
                     position: [],
                     status: null,
                 },
-            ]
+            ],
         }
     }
 })

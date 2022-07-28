@@ -3,7 +3,7 @@
     <h1>Bienvenue sur le jeu de bataille navale</h1>
     <grid-battleship/>
     <ShipTemplate
-    v-for="ship in this.listOfShip" :key="ship"/>
+        v-for="ship in this.listOfShip" :key="ship"/>
   </div>
 </template>
 
@@ -12,6 +12,8 @@
   .about {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
 }

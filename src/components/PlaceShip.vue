@@ -1,5 +1,5 @@
 <template>
-  <div class="shipForm border border-2px p-5 mt-5">
+  <div class="shipForm border border-2px p-5 mt-5" v-if="isShipToPlace">
     <label class="block uppercase tracking-wide text-center text-gray-800 text-xl font-bold mb-2">
       Placement des navires
     </label>
@@ -8,7 +8,7 @@
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
           Navires
         </label>
-        <select>
+        <select v-model="selectedShip">
           <option v-for="ship in  placeableShips" :key="ship"> {{ ship.name }}</option>
         </select>
       </div>
@@ -20,7 +20,9 @@
         </label>
         <div class="relative">
           <select
-              class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+              class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              v-model="initPosition"
+          >
             <option v-for="n in 100" :key="n">{{ n }}</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -36,7 +38,9 @@
         </label>
         <div class="relative">
           <select
-              class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+              class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              v-model="finalPosition"
+          >
             <option v-for="n in 100" :key="n">{{ n }}</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -64,18 +68,32 @@ export default {
   data() {
     return {
       ships: useShipList(),
+      selectedShip:null,
+      initPosition:null,
+      finalPosition:null,
+      isShip: false,
+      isShipToPlace:'',
+
     }
   },
   methods: {
     placeShip() {
-      console.log("Bateau placé")
+      console.log(this.selectedShip, this.initPosition, this.finalPosition)
+      const intermediateShipItem = this.ships.listOfShip.filter(element=> element.name === this.selectedShip);
+      intermediateShipItem[0].position.push(this.initPosition, this.finalPosition);
     }
   },
   computed: {
     placeableShips() {
       return this.ships.listOfShip.filter(element => !element.position.length)
+    },
+    isShipToPlace(){
+      if(this.placeableShips.length){
+        return true;
+      }
+      return false;
     }
-  }
+  },
 }
 </script>
 

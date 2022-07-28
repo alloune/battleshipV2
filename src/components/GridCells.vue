@@ -15,11 +15,11 @@ export default {
 
 <style scoped>
 .cell{
-  border: 2px solid white;
+  border: 2px solid black;
   height: 50px;
   width: 50px;
 }
 h2{
-  color: white;
+  color: black;
 }
 </style>

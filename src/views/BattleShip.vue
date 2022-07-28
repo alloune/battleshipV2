@@ -4,6 +4,7 @@
     <grid-battleship/>
     <ShipTemplate
     v-for="ship in this.listOfShip" :key="ship"/>
+
   </div>
 </template>
 

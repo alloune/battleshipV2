@@ -80,24 +80,28 @@ export default {
       const intermediateShipItem = this.ships.listOfShip.filter(element=> element.name === this.selectedShip);
       this.checkIdPositionIsValide(intermediateShipItem[0])
     },
+
     checkIdPositionIsValide(ship){
       if((this.finalPosition - this.initPosition) + 1 === ship.size){
         if(this.outOfBoundHorizontally(this.initPosition, this.finalPosition)){
+
           for(let i =parseInt(this.initPosition); i <= this.finalPosition; i++){
-             return ship.position.push(i);
+            console.log('bite')
+              ship.position.push(i);
+
           }
         }
          return alert('Ton bateau ne peux être que sur une seule ligne')
-
       }
       if((this.finalPosition - this.initPosition) % 10 === 0){
         if(this.outOfBoundVertically(this.initPosition, ship.size)){
           for(let i =parseInt(this.initPosition); i <= this.finalPosition; i+=10){
-            return ship.position.push(i);
+             ship.position.push(i);
           }
         }
       }
     },
+
     outOfBoundHorizontally(initPosition, finalPosition){
       const valueToTest = (Math.trunc(initPosition/10)*10)+10
       if(finalPosition > valueToTest){

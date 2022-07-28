@@ -1,10 +1,15 @@
 <template>
-  <div class="about">
-    <h1>Bienvenue sur le jeu de bataille navale</h1>
-    <grid-battleship/>
-    <ShipTemplate
-    v-for="ship in this.listOfShip" :key="ship"/>
+  <div class="flex flex-col">
+    <div class="about">
+      <h1>Bienvenue sur le jeu de bataille navale</h1>
+      <grid-battleship/>
+      <ShipTemplate
+          v-for="ship in this.listOfShip" :key="ship"/>
+      <PlaceShip/>
+    </div>
+
   </div>
+
 </template>
 
 <style>
@@ -20,8 +25,9 @@
 <script>
 import GridBattleship from "../components/GridBattleship.vue";
 import ShipTemplate from "../components/ShipTemplate.vue";
+import PlaceShip from "../components/PlaceShip.vue";
 
 export default {
-  components: {ShipTemplate, GridBattleship},
+  components: {PlaceShip, ShipTemplate, GridBattleship},
 }
 </script>

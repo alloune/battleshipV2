@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row">
-  <ShipTemplate v-for="ship in ships.listOfShip" :ship="ship"/>
+  <ShipTemplate v-for="ship in placeableShips" :ship="ship"/>
   </div>
 </template>
 
@@ -14,7 +14,12 @@ export default {
       ships: useShipList(),
     }
   },
-  components: {ShipTemplate}
+  components: {ShipTemplate},
+  computed: {
+    placeableShips() {
+      return this.ships.listOfShip.filter(element => !element.position.length)
+    }
+  }
 }
 </script>
 

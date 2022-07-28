@@ -5,6 +5,7 @@
       <grid-battleship/>
       <ShipTemplate
           v-for="ship in this.listOfShip" :key="ship"/>
+      <ShipListing />
       <PlaceShip/>
     </div>
 
@@ -26,8 +27,9 @@
 import GridBattleship from "../components/GridBattleship.vue";
 import ShipTemplate from "../components/ShipTemplate.vue";
 import PlaceShip from "../components/PlaceShip.vue";
+import ShipListing from "../components/ShipListing.vue";
 
 export default {
-  components: {PlaceShip, ShipTemplate, GridBattleship},
+  components: {ShipListing, PlaceShip, ShipTemplate, GridBattleship},
 }
 </script>

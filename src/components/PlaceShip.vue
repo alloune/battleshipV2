@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import {useShipList} from "../Ships/ShipList.js";
 
+import {useShipList} from "../Ships/ShipList.js";
 export default {
   name: "PlaceShip",
   data() {
@@ -73,14 +73,24 @@ export default {
       finalPosition:null,
       isShip: false,
       isShipToPlace:'',
-
     }
   },
   methods: {
     placeShip() {
-      console.log(this.selectedShip, this.initPosition, this.finalPosition)
       const intermediateShipItem = this.ships.listOfShip.filter(element=> element.name === this.selectedShip);
-      intermediateShipItem[0].position.push(this.initPosition, this.finalPosition);
+      if(this.checkIdPositionIsValide(intermediateShipItem[0])){
+        for(let i =parseInt(this.initPosition); i <= this.finalPosition; i++){
+          intermediateShipItem[0].position.push(i);
+        }
+        return console.log(intermediateShipItem[0].position)
+      }
+      return alert('La taille n\'est pas valide !!!');
+    },
+    checkIdPositionIsValide(ship){
+      if((this.finalPosition - this.initPosition) + 1 === ship.size){
+        return true
+      }
+      return false
     }
   },
   computed: {

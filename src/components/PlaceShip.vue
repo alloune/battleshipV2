@@ -78,32 +78,42 @@ export default {
   methods: {
     placeShip() {
       const intermediateShipItem = this.ships.listOfShip.filter(element=> element.name === this.selectedShip);
-      if(this.checkIdPositionIsValide(intermediateShipItem[0])){
-        for(let i =parseInt(this.initPosition); i <= this.finalPosition; i++){
-          intermediateShipItem[0].position.push(i);
-        }
-        return console.log(intermediateShipItem[0].position)
-      }
-      return alert('La taille n\'est pas valide ou tu sors de la ligne !!!');
+      this.checkIdPositionIsValide(intermediateShipItem[0])
     },
     checkIdPositionIsValide(ship){
       if((this.finalPosition - this.initPosition) + 1 === ship.size){
-        if(this.outOfBound(this.initPosition, this.finalPosition))
-        return true
+        if(this.outOfBoundHorizontally(this.initPosition, this.finalPosition)){
+          for(let i =parseInt(this.initPosition); i <= this.finalPosition; i++){
+             return ship.position.push(i);
+          }
+        }
+         return alert('Ton bateau ne peux être que sur une seule ligne')
+
       }
       if((this.finalPosition - this.initPosition) % 10 === 0){
-        console.log('tentative de placer à la verticale')
+        console.log('horizontal')
+        if(this.outOfBoundVertically(this.initPosition, ship.size)){
+          console.log('à finir')
+        }
       }
-      return false
+      alert('Le bateau n\'a pas la bonne longueur.')
     },
-    outOfBound(initPosition, finalPosition){
-      // si final != initTrunc+10 ==> mauvaise position.
+    outOfBoundHorizontally(initPosition, finalPosition){
+
       const valueToTest = (Math.trunc(initPosition/10)*10)+10
       if(finalPosition > valueToTest){
         return false
       }
       return true;
     },
+    outOfBoundVertically(initPosition,shipSize){
+      const helperValue = (shipSize - 1)*10;
+      console.log((initPosition + helperValue))
+      if(initPosition + helperValue > 100){
+        return false;
+      }
+      return true;
+    }
   },
   computed: {
     placeableShips() {

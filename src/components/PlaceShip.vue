@@ -72,7 +72,6 @@ export default {
       initPosition:null,
       finalPosition:null,
       isShip: false,
-      isShipToPlace:'',
     }
   },
   methods: {
@@ -86,12 +85,9 @@ export default {
         if(this.outOfBoundHorizontally(this.initPosition, this.finalPosition)){
 
           for(let i =parseInt(this.initPosition); i <= this.finalPosition; i++){
-            console.log('bite')
               ship.position.push(i);
-
           }
         }
-         return alert('Ton bateau ne peux être que sur une seule ligne')
       }
       if((this.finalPosition - this.initPosition) % 10 === 0){
         if(this.outOfBoundVertically(this.initPosition, ship.size)){

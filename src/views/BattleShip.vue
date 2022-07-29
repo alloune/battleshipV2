@@ -8,7 +8,7 @@
       <ShipListing />
       <PlaceShip/>
     </div>
-
+<button @click="reset">Reset</button>
   </div>
 
 </template>
@@ -28,8 +28,19 @@ import GridBattleship from "../components/GridBattleship.vue";
 import ShipTemplate from "../components/ShipTemplate.vue";
 import PlaceShip from "../components/PlaceShip.vue";
 import ShipListing from "../components/ShipListing.vue";
+import {useShipList} from "../Ships/ShipList";
 
 export default {
   components: {ShipListing, PlaceShip, ShipTemplate, GridBattleship},
+  data(){
+    return{
+      shipList: useShipList(),
+    }
+  },
+  methods: {
+    reset() {
+      this.shipList.$reset();
+    },
+  }
 }
 </script>

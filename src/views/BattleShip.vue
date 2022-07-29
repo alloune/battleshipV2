@@ -35,12 +35,13 @@ export default {
   data(){
     return{
       shipList: useShipList(),
+
     }
   },
   methods: {
     reset() {
       this.shipList.$reset();
     },
-  }
+  },
 }
 </script>

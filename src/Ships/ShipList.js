@@ -2,8 +2,9 @@ import { defineStore  } from "pinia";
 
 export const useShipList = defineStore("ShipsList",{
     state: ()=>{
+    const data = JSON.parse(localStorage.getItem('listOfShip')  || null)
         return {
-            listOfShip:[
+            listOfShip: data || [
                 {
                     name: 'Croiser',
                     size: 5,

@@ -125,6 +125,12 @@ export default {
       return false;
     }
   },
+  mounted: function(){
+    this.ships.$subscribe(() => {
+          localStorage.setItem('listOfShip', JSON.stringify(this.ships.listOfShip))
+        }
+    )
+  }
 }
 </script>
 

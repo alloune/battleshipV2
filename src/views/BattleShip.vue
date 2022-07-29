@@ -8,6 +8,10 @@
       <ShipListing />
       <PlaceShip/>
     </div>
+    <va-badge
+        text="success"
+        color="success"
+    />
 <button @click="reset">Reset</button>
   </div>
 

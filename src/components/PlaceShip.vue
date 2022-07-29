@@ -21,7 +21,7 @@
         <div class="relative">
           <select
               class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              v-model="initPosition"
+              v-model.number="initPosition"
           >
             <option v-for="n in 100" :key="n">{{ n }}</option>
           </select>
@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0" v-if="initPosition">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
           Position Finale
         </label>
@@ -41,7 +41,7 @@
               class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               v-model="finalPosition"
           >
-            <option v-for="n in 100" :key="n">{{ n }}</option>
+            <option v-for="position in positionsRange" :key="position">{{ position }}</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -63,70 +63,81 @@
 <script>
 
 import {useShipList} from "../Ships/ShipList.js";
+
 export default {
   name: "PlaceShip",
   data() {
     return {
       ships: useShipList(),
-      selectedShip:null,
-      initPosition:null,
-      finalPosition:null,
+      selectedShip: null,
+      initPosition: null,
+      finalPosition: null,
       isShip: false,
-      isShipToPlace:'',
+      isShipToPlace: '',
     }
   },
   methods: {
     placeShip() {
-      const intermediateShipItem = this.ships.listOfShip.filter(element=> element.name === this.selectedShip);
+      const intermediateShipItem = this.ships.listOfShip.filter(element => element.name === this.selectedShip);
       this.checkIdPositionIsValide(intermediateShipItem[0])
     },
+    checkIdPositionIsValide(ship) {
+      if ((this.finalPosition - this.initPosition) + 1 === ship.size) {
+        if (this.outOfBoundHorizontally(this.initPosition, this.finalPosition)) {
 
-    checkIdPositionIsValide(ship){
-      if((this.finalPosition - this.initPosition) + 1 === ship.size){
-        if(this.outOfBoundHorizontally(this.initPosition, this.finalPosition)){
-
-          for(let i =parseInt(this.initPosition); i <= this.finalPosition; i++){
+          for (let i = parseInt(this.initPosition); i <= this.finalPosition; i++) {
             console.log('bite')
-              ship.position.push(i);
+            ship.position.push(i);
 
           }
         }
-         return alert('Ton bateau ne peux être que sur une seule ligne')
+        return alert('Ton bateau ne peux être que sur une seule ligne')
       }
-      if((this.finalPosition - this.initPosition) % 10 === 0){
-        if(this.outOfBoundVertically(this.initPosition, ship.size)){
-          for(let i =parseInt(this.initPosition); i <= this.finalPosition; i+=10){
-             ship.position.push(i);
+      if ((this.finalPosition - this.initPosition) % 10 === 0) {
+        if (this.outOfBoundVertically(this.initPosition, ship.size)) {
+          for (let i = parseInt(this.initPosition); i <= this.finalPosition; i += 10) {
+            ship.position.push(i);
           }
         }
       }
+
     },
-
-    outOfBoundHorizontally(initPosition, finalPosition){
-      const valueToTest = (Math.trunc(initPosition/10)*10)+10
-      if(finalPosition > valueToTest){
+    outOfBoundHorizontally(initPosition, finalPosition) {
+      const valueToTest = (Math.trunc(initPosition / 10) * 10) + 10
+      if (finalPosition > valueToTest) {
         return false
       }
       return true;
     },
-    outOfBoundVertically(initPosition,shipSize){
-      const helperValue = (shipSize - 1)*10;
+    outOfBoundVertically(initPosition, shipSize) {
+      const helperValue = (shipSize - 1) * 10;
       console.log(parseInt(initPosition) + helperValue)
-      if(parseInt(initPosition) + helperValue > 100){
+      if (parseInt(initPosition) + helperValue > 100) {
         return false;
       }
       return true;
-    }
+    },
   },
+
   computed: {
     placeableShips() {
       return this.ships.listOfShip.filter(element => !element.position.length)
     },
-    isShipToPlace(){
-      if(this.placeableShips.length){
+    isShipToPlace() {
+      if (this.placeableShips.length) {
         return true;
       }
       return false;
+    },
+    positionsRange() {
+      console.log('test')
+      let ship = this.ships.listOfShip.find(element => element.name === this.selectedShip)
+      let array = []
+      if(ship && this.initPosition) {
+          array.push(this.initPosition + ship.size - 1)
+          console.log(array)
+        }
+      return array
     }
   },
 }

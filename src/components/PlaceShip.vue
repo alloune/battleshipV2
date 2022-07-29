@@ -63,6 +63,8 @@
 <script>
 
 import {useShipList} from "../Ships/ShipList.js";
+
+
 export default {
   name: "PlaceShip",
   data() {
@@ -134,8 +136,11 @@ export default {
 }
 </script>
 
-<style scoped>
-.shipForm {
-  width: 500px;
+<style lang="scss">
+@import '../assets/component.scss';
+
+.shipForm{
+  width: $gridSize;
 }
+
 </style>
